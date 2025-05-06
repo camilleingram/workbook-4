@@ -36,19 +36,45 @@ public class Room {
         return isDirty;
     }
 
-    public void setDirty(boolean dirty) {
-        isDirty = dirty;
+    public void setDirty(boolean isDirty) {
+        this.isDirty = isDirty;
     }
 
     public boolean isOccupied() {
         return isOccupied;
     }
 
-    public void setOccupied(boolean occupied) {
-        isOccupied = occupied;
+    public void setOccupied(boolean isOccupied) {
+        this.isOccupied = isOccupied;
     }
 
     public boolean isAvailable() {
         return !isDirty && !isOccupied;
+    }
+
+    public boolean checkIn() {
+        if(!isOccupied && !isDirty) {
+            isOccupied = true;
+            isDirty = true;
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkOut() {
+        if(isOccupied) {
+            isOccupied = false;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean cleanRoom() {
+        if(!isOccupied && isDirty) {
+            isDirty = false;
+            return true;
+        }
+        return false;
     }
 }

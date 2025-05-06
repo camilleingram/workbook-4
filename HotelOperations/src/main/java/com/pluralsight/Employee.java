@@ -1,19 +1,35 @@
 package com.pluralsight;
 
+import java.time.Duration;
+import java.time.LocalTime;
+
 public class Employee {
     private int employeeId = 0;
     private String name = "";
     private String department = "";
     private float payRate = 0;
     private float hoursWorked = 0;
+    private LocalTime clockIn = null;
 
-    public Employee(int employeeId, String name, String department, float payRate, float hoursWorked) {
+
+    public Employee(int employeeId, String name, String department, float payRate, float hoursWorked,
+            LocalTime clockIn) {
         this.employeeId = employeeId;
         this.name = name;
         this.department = department;
         this.payRate = payRate;
         this.hoursWorked = hoursWorked;
+        this.clockIn = clockIn;
     }
+
+    public LocalTime getClockIn() {
+        return clockIn;
+    }
+
+    public void setClockIn(LocalTime clockIn) {
+        this.clockIn = clockIn;
+    }
+
 
     public int getEmployeeId() {
         return employeeId;
@@ -76,4 +92,21 @@ public class Employee {
         }
         return overtimeHours;
     }
+
+   public void punchTimeCard(String timeCard) {
+       if(timeCard.equalsIgnoreCase("in")) {
+           clockIn = LocalTime.now();
+           System.out.printf("You punched in at %tH:%tM:%tS%n", clockIn, clockIn, clockIn);
+       }else if(timeCard.equalsIgnoreCase("out")) {
+           LocalTime clockOut = LocalTime.now();
+           Duration duration = Duration.between(clockIn, clockOut);
+           float shift = duration.toMinutes();
+           shift /= 60;
+           hoursWorked += shift;
+           System.out.println(hoursWorked);
+
+       }
+
+
+   }
 }
