@@ -10,6 +10,7 @@ public class Reservation {
         this.roomType = roomType;
         this.numOfNights = numOfNights;
         this.isWeekend = isWeekend;
+
     }
 
     public String getRoomType() {

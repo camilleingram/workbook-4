@@ -11,9 +11,7 @@ public class Employee {
     private float hoursWorked = 0;
     private LocalTime clockIn = null;
 
-
-    public Employee(int employeeId, String name, String department, float payRate, float hoursWorked,
-            LocalTime clockIn) {
+    public Employee(int employeeId, String name, String department, float payRate, float hoursWorked, LocalTime clockIn) {
         this.employeeId = employeeId;
         this.name = name;
         this.department = department;
@@ -29,7 +27,6 @@ public class Employee {
     public void setClockIn(LocalTime clockIn) {
         this.clockIn = clockIn;
     }
-
 
     public int getEmployeeId() {
         return employeeId;
@@ -93,20 +90,55 @@ public class Employee {
         return overtimeHours;
     }
 
-   public void punchTimeCard(String timeCard) {
-       if(timeCard.equalsIgnoreCase("in")) {
-           clockIn = LocalTime.now();
-           System.out.printf("You punched in at %tH:%tM:%tS%n", clockIn, clockIn, clockIn);
-       }else if(timeCard.equalsIgnoreCase("out")) {
-           LocalTime clockOut = LocalTime.now();
-           Duration duration = Duration.between(clockIn, clockOut);
-           float shift = duration.toMinutes();
-           shift /= 60;
-           hoursWorked += shift;
-           System.out.println(hoursWorked);
+//   public void punchTimeCard(String timeCard) {
+//       if(timeCard.equalsIgnoreCase("in")) {
+//           clockIn = LocalTime.now();
+//           System.out.printf("You punched in at %tH:%tM:%tS%n", clockIn, clockIn, clockIn);
+//       }else if(timeCard.equalsIgnoreCase("out")) {
+//           LocalTime clockOut = LocalTime.now();
+//           Duration duration = Duration.between(clockIn, clockOut);
+//           float shift = duration.toMinutes();
+//           shift /= 60;
+//           hoursWorked += shift;
+//           System.out.println(hoursWorked);
+//
+//       }
+//
+//
+//   }
 
-       }
-
-
+   public void punchIn(double time) {
+        int hour = (int) time;
+        double doubleMinutes = (time - hour) * 60;
+        int minutes = (int) doubleMinutes;
+        double doubleSeconds = (doubleMinutes - minutes) * 60;
+        int seconds = (int) doubleSeconds;
+        this.clockIn = LocalTime.of(hour, minutes, seconds);
+        System.out.printf("You punched in at %tH:%tM:%tS%n", clockIn, clockIn, clockIn);
    }
+
+    public LocalTime punchIn() {
+        return clockIn = LocalTime.now();
+    }
+
+    public void punchOut(double time) {
+        int hour = (int) time;
+        double doubleMinutes = (time - hour) * 60;
+        int minutes = (int) doubleMinutes;
+        double doubleSeconds = (doubleMinutes - minutes) * 60;
+        int seconds = (int) doubleSeconds;
+
+        LocalTime clockOut = LocalTime.of(hour, minutes, seconds);
+        Duration duration = Duration.between(clockIn, clockOut);
+        float shift = duration.toMinutes();
+        shift /= 60;
+        hoursWorked += shift;
+        System.out.println(hoursWorked);
+   }
+
+    public LocalTime punchOut() {
+        return LocalTime.now();
+    }
+
+
 }
