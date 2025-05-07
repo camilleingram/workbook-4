@@ -65,12 +65,10 @@ public class Hotel {
     public boolean bookRoom(int roomRequest, boolean isSuite) {
         if(isSuite && roomRequest <= numOfSuites) {
             bookedSuites += roomRequest;
-            numOfSuites -= roomRequest;
             System.out.printf("You have booked %d suites", roomRequest);
             return true;
         } else if(!isSuite && roomRequest <= numOfRooms) {
             bookedBasicRooms += roomRequest;
-            numOfRooms -= roomRequest;
             System.out.printf("You have booked %d basic rooms", roomRequest);
             return true;
         } else {
@@ -80,11 +78,11 @@ public class Hotel {
     }
 
     public int getAvailableSuites() {
-        return numOfSuites;
+        return numOfSuites - bookedSuites;
     }
 
     public int getAvailableRooms() {
-        return numOfRooms;
+        return numOfRooms - bookedBasicRooms;
     }
 
 }
