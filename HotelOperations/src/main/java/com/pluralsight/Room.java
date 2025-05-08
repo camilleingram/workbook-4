@@ -65,6 +65,7 @@ public class Room {
     public boolean checkOut() {
         if(isOccupied) {
             isOccupied = false;
+            isDirty = true;
             return true;
         }
         return false;
